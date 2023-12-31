@@ -1,4 +1,4 @@
-#include "../src/mutext.h"
+#include "../src/mutex.h"
 #include <iostream>
 #include <thread>
 #include <cassert>
