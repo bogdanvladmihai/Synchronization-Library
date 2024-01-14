@@ -7,7 +7,7 @@
 
 int main() {
   const int WORKERS = 1e5;
-  const int ITEMS = 50;
+  const int ITEMS = 5;
 
   ProducerConsumer <int> PS(ITEMS);
 
@@ -25,7 +25,7 @@ int main() {
   std::vector<std::thread> threads;
   std::iota(l.begin(), l.end(), 0);
   for (int &i : l) {
-    if (i % 2 == 0) {
+    if (i % 2 == 1) {
       threads.push_back(std::thread ([&PS, &i]() {
         PS.add_item(i);
       }));
