@@ -11,11 +11,11 @@ void ProducerConsumer<T>::add_item(const T& item){
 }
 
 template<class T>
-T& ProducerConsumer<T>::get_item(){
+T ProducerConsumer<T>::get_item(){
   available_items.wait();
   mutex.lock();
-    T& item = items[items.size()-1];
-    items.pop_back();
+    T item = items.front();
+    items.pop_front();
   mutex.unlock();
   free_spaces.signal();
   return item;
