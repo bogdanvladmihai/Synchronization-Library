@@ -1,8 +1,8 @@
-#include "ProducerConsumer.h"
+template<class T>
+ProducerConsumer<T>::ProducerConsumer(int buff_size) : available_items(0), free_spaces(buff_size){}
 
-ProducerConsumer::ProducerConsumer(int buff_size): available_items(0), free_spaces(buff_size){}
-
-void ProducerConsumer::add_item(T& item){
+template<class T>
+void ProducerConsumer<T>::add_item(const T& item){
   free_spaces.wait();
   mutex.lock();
     items.push_back(item);
@@ -10,16 +10,13 @@ void ProducerConsumer::add_item(T& item){
   available_items.signal();    
 }
 
-T ProducerConsumer::get_item(){
+template<class T>
+T& ProducerConsumer<T>::get_item(){
   available_items.wait();
   mutex.lock();
-    T item = items[items.size()-1];
+    T& item = items[items.size()-1];
     items.pop_back();
   mutex.unlock();
   free_spaces.signal();
   return item;
-}
-
-int main(){
-  return 0;
 }

@@ -10,6 +10,8 @@ private:
 
 public:
   ProducerConsumer(int buff_size);
-  void add_item(T& item);
-  T get_item();
+  void add_item(const T& item);
+  T& get_item();
 };
+
+#include "ProducerConsumer.cpp"
