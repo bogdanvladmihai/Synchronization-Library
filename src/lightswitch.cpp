@@ -1,25 +1,17 @@
-#include "semaphore.h"
+#include "lightswitch.h"
 
-class Lightswitch {
-private:
-    int counter;
-    Mutex mutex;
-public:
-    Lightswitch() : counter(0){}
-    void close(Semaphore & s){
-        mutex.lock();
-        counter++;
-        if(counter ==1){
-            s.wait();
-        }
-        mutex.unlock();
-    }
-    void open(Semaphore& s){
-        mutex.lock();
-        counter--;
-        if(!counter){
-            s.signal();
-        }
-        mutex.unlock();
-    }
-};
+void Lightswitch::open(Semaphore& s) {
+  LockGuard lock(mutex);
+  counter--;
+  if(counter == 0) {
+    s.signal();
+  }
+}
+
+void Lightswitch::close(Semaphore& s) {
+  LockGuard lock(mutex);
+  counter++;
+  if(counter == 1) {
+    s.wait();
+  }
+}
