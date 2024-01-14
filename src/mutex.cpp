@@ -22,12 +22,24 @@ bool Mutex::try_lock() {
 /*******************************************
  * TimedMutex 
  */
-bool TimedMutex::try_lock_for(int ms) {
-  auto start_time = std::chrono::high_resolution_clock::now();
+template<class R, class P>
+bool TimedMutex::try_lock_for(const std::chrono::duration<R, P>& duration) {
+  auto start = std::chrono::high_resolution_clock::now();
   while (std::atomic_flag_test_and_set_explicit(&flag, std::memory_order_acquire)) {
-    auto now = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - start_time);
-    if (duration.count() >= ms) {
+    auto end = std::chrono::high_resolution_clock::now();
+    if (end - start > duration) {
+      return false;
+    }
+  }
+  return true;
+}
+
+template<class R, class P>
+bool TimedMutex::try_lock_until(const std::chrono::time_point<R, P>& time_point) {
+  auto start = std::chrono::high_resolution_clock::now();
+  while (std::atomic_flag_test_and_set_explicit(&flag, std::memory_order_acquire)) {
+    auto end = std::chrono::high_resolution_clock::now();
+    if (end > time_point) {
       return false;
     }
   }

@@ -1,6 +1,7 @@
 #include <atomic>
 #include <vector>
 #include <functional>
+#include <chrono>
 
 /**
  * Mutex class
@@ -45,9 +46,11 @@ public:
   TimedMutex(const TimedMutex&) = delete;
   TimedMutex& operator=(const TimedMutex&) = delete;
 
-  bool try_lock_for(int ms);
+  template<class R, class P>
+  bool try_lock_for(const std::chrono::duration<R, P> &);
+  template<class R, class P>
+  bool try_lock_until(const std::chrono::time_point<R, P> &);
 };
-
 
 /**
  * LockGuard class

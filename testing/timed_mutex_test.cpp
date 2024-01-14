@@ -8,7 +8,7 @@ int main() {
 
   mutex.lock();
   std::thread t([&mutex]() {
-    assert(mutex.try_lock_for(100) == false);
+    assert(mutex.try_lock_for(std::chrono::milliseconds(100)) == false);
   });
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
   mutex.unlock();
@@ -16,7 +16,7 @@ int main() {
 
   mutex.lock();
   std::thread t2([&mutex]() {
-    assert(mutex.try_lock_for(1000) == true);
+    assert(mutex.try_lock_for(std::chrono::milliseconds(1000)) == true);
   });
   mutex.unlock();
   t2.join();

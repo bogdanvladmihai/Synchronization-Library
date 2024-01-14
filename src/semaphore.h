@@ -15,6 +15,8 @@ public:
   Semaphore(int);
   void signal();
   void wait();
+  
+  // TODO Vlad: thould delete op=, cc
 
 private:
   int count;
