@@ -2,8 +2,8 @@
 #include <iostream>
 #include <thread>
 #include <cassert>
-#include <algorithm>
 #include <numeric>
+#include <set>
 
 int main() {
   const int WORKERS = 10000;
@@ -11,10 +11,9 @@ int main() {
 
   ProducerConsumer <int> PS(ITEMS);
 
-  std::vector<int> items;
   std::vector<std::thread> threads;
   Mutex items_mutex;
-
+  std::set<int> items;
   for (int i = 0; i < WORKERS; i++) {
     if (i % 2 == 1) {
       threads.push_back(std::thread ([&PS, i]() {
@@ -25,7 +24,7 @@ int main() {
         int item = PS.get_item();
 
         items_mutex.lock();
-        items.push_back(item);
+        items.insert(item);
         items_mutex.unlock();
       }));
     }
@@ -34,8 +33,11 @@ int main() {
   for(auto &t: threads){
     t.join();
   }
+
   assert(items.size() == WORKERS / 2);
-  assert(std::is_sorted(items.begin(), items.end()));
+  for (int i = 0; i < WORKERS / 2; i++) {
+    assert(items.find(2 * i + 1) != items.end());
+  }
   std::cout << "Test passed!" << std::endl;
 
   return 0;
