@@ -46,10 +46,7 @@ public:
   TimedMutex(const TimedMutex&) = delete;
   TimedMutex& operator=(const TimedMutex&) = delete;
 
-  template<class R, class P>
-  bool try_lock_for(const std::chrono::duration<R, P> &);
-  template<class R, class P>
-  bool try_lock_until(const std::chrono::time_point<R, P> &);
+  bool try_lock_for(int ms);
 };
 
 /**
