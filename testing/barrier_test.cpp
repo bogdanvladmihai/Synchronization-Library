@@ -34,9 +34,9 @@ int main() {
     t.join();
   }
 
-  // assert(v.size() == 2 * WORKERS);
-  // assert(std::is_permutation(v.begin(), v.begin() + WORKERS, perm.begin()));
-  // assert(std::is_permutation(v.begin() + WORKERS, v.end(), perm.begin()));
+  assert(v.size() == 2 * WORKERS);
+  assert(std::is_permutation(v.begin(), v.begin() + WORKERS, perm.begin()));
+  assert(std::is_permutation(v.begin() + WORKERS, v.end(), perm.begin()));
   std::cout << "Test passed!" << std::endl;
 
   return 0;
