@@ -9,7 +9,6 @@ private:
   Semaphore available_items;
   Semaphore free_spaces;
 
-  // TODO Cristiana: items should keep references to the items
 
 public:
   ProducerConsumer(int buff_size);
