@@ -1,6 +1,15 @@
 #include "semaphore.h"
 #include <deque>
 
+/**
+ * int no_items;
+ * T item;
+ * ProducerConsumer PC(no_items);
+ * PC.add_item(item);
+ * item = PC.get_item(); 
+ * 
+*/
+
 template <class T>
 class ProducerConsumer {
 private:

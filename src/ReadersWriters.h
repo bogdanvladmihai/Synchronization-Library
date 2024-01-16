@@ -1,5 +1,17 @@
 #include "lightswitch.h"
 
+/**
+ * ReadersEriters RW;
+ * RW.aquire_writer();
+ * //write
+ * RW.release_writer();
+ *
+ * RW.aquire_reader();
+ * //read
+ * RW.release_reader();
+ * 
+*/
+
 class ReadersWriters{
 protected:
   Lightswitch readSwitch;
