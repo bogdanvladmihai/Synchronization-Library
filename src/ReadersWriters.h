@@ -29,7 +29,7 @@ private:
   Semaphore noReaders;
   Semaphore noWriters;
 public:
-  WriterPriority();
+  RW_WriterPriority();
   void aquire_writer() override;
   void release_writer() override;
 
