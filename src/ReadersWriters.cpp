@@ -22,7 +22,7 @@ RW_NoStarve::RW_NoStarve():roomIsEmpty(1){}
   }
 
 
-  RW_WriterPriority::RW_WriterPriority(): noReaders(1), noWriters(1){}
+RW_WriterPriority::RW_WriterPriority(): noReaders(1), noWriters(1){}
   void RW_WriterPriority::aquire_writer() {
     writeSwitch.close(noReaders);
       noWriters.wait();

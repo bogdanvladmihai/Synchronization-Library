@@ -1,4 +1,3 @@
-
 #include "../src/ReadersWriters.h"
 #include <iostream>
 #include <thread>
@@ -30,7 +29,7 @@ int main() {
   for (int &i : l) {
     if (i % 2 == 1) {
       //reader
-      threads.push_back(std::thread ([&RW, &i]() {
+      threads.push_back(std::thread ([&RW, i]() {
         RW.aquire_reader();
         std::cout<<"Reader "<<i<<": ";
         read();

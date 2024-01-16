@@ -26,10 +26,10 @@ int main() {
 
   std::vector<std::thread> threads;
   std::iota(l.begin(), l.end(), 0);
-  for (int &i : l) {
+  for (int i=0; i<WORKERS; i++) {
     if (i % 2 == 1) {
       //reader
-      threads.push_back(std::thread ([&RW, &i]() {
+      threads.push_back(std::thread ([&RW, i]() {
         RW.aquire_reader();
         std::cout<<"Reader "<<i<<": ";
         read();
