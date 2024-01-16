@@ -16,10 +16,14 @@ public:
   void signal();
   void wait();
   
-  // TODO Vlad: thould delete op=, cc
+  Semaphore(const Semaphore &) = delete;
+  Semaphore operator = (const Semaphore&) = delete;
+  ~Semaphore() = default;
 
 private:
   int count;
   Mutex lock;
+
+  static const int TRY_NO_TIMEOUT_CNT = 10000;
 };
 
