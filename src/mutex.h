@@ -55,9 +55,14 @@ public:
  * Mutex counter_lock;
  * int count = 0;
  * 
- * void add_one() {
+ * bool add_one() {
  *   LockGuard lock(counter_lock);
+ *   critical zone
+ *   if (count == LIMIT) {
+ *    return false;
+ *   }
  *   count += 1;
+ *   return true;
  * }
  */
 class LockGuard {

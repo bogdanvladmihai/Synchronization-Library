@@ -1,5 +1,14 @@
 #include "semaphore.h"
 
+/**
+ * 
+ * Semaphore s;
+ * Lightswitch L;
+ * 
+ * L.close(s);
+ * L.open(s);
+ * 
+ */
 class Lightswitch {
 private:
   int counter;
