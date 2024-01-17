@@ -126,8 +126,8 @@ Simple lightswitch object.
 Semaphore s;
 Lightswitch L;
 
-L.close(s);
 L.open(s);
+L.close(s);
 ```
 
 * **ProducerConsumer**
