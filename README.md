@@ -1,6 +1,6 @@
 # Synchronization-Library
 
-This is a C++ synchronization library implemented only using atmoic primitives such as `std::atomic_flag_test_and_set_explicit` and `std::atomic_flag_clear_explicit`.
+This is a C++ synchronization library implemented only using atomic primitives such as `std::atomic_flag_test_and_set_explicit` and `std::atomic_flag_clear_explicit`.
 
 The library provides implementations for various synchronization tools. 
 
@@ -159,6 +159,29 @@ Objects to solve the readers-writers problem. Depending on the situation, you ca
 const int WORKERS = 500;
 
 RW_NoStarve rwlock;
+
+std::vector<std::thread> threads;
+for (int i = 0; i < WORKERS; i++) {
+  if (i % 2 == 1) {
+    threads.push_back(std::thread ([&rwlock]() {
+      RW.aquire_reader();
+      reader code
+      RW.release_reader();
+    }));
+  } else {
+    threads.push_back(std::thread ([&rwlock]() {
+      RW.aquire_writer();
+      writer code
+      RW.release_writer();
+    }));
+  }
+}
+```
+
+```c++
+const int WORKERS = 500;
+
+RW_WriterPriority rwlock;
 
 std::vector<std::thread> threads;
 for (int i = 0; i < WORKERS; i++) {
